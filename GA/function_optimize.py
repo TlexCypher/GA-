@@ -52,17 +52,25 @@ def d2vec(decimal: int) -> Tuple[int, int]:
     scale = 8
     return (int(decimal // scale), int(decimal % scale))
 
+def gen_population(size: int) -> str:
+    return ''.join([str(random.randint(0, 1)) for _ in range(size)])
+
+def mutation_func(population: str, mutation_rate: float) -> str:
+    return ''.join([str(1 ^ int(bit)) if random.random() < mutation_rate else bit for bit in population])
+
 def OneDimFuncOptimize():
     print("One Dimension Function Optimization start.")
     print("Binary Encoding Version.")
 
     random.seed(0)
-    ga_solver = GASolver()
+    ga_solver = GASolver(False)
     ga_solver.solve(generation_num=5,
        population_num=5,
        population_size=5,
        fitness_func=d1_func,
+       gen_population=lambda x:gen_population(x),
        g2p=lambda x: b2d(x),
+       mutation_func=lambda x,y:mutation_func(x,y),
        cross_over_rate=0.7,
        mutation_rate=0.3,
        )
@@ -71,7 +79,9 @@ def OneDimFuncOptimize():
        population_num=5,
        population_size=5,
        fitness_func=d1_func,
+       gen_population=lambda x:gen_population(x),
        g2p=lambda x: b2d(gr2b(x)),
+       mutation_func=lambda x,y:mutation_func(x,y),
        cross_over_rate=0.7,
        mutation_rate=0.3,
        )
@@ -81,12 +91,14 @@ def TwoDimFuncOptimize():
     print("Binary Encoding Version.")
 
     random.seed(0)
-    ga_solver = GASolver()
+    ga_solver = GASolver(False)
     ga_solver.solve(generation_num=5,
        population_num=5,
        population_size=5,
        fitness_func=d2_func,
+       gen_population=lambda x:gen_population(x),
        g2p=lambda x: d2vec(b2d(x)),
+       mutation_func=lambda x,y:mutation_func(x,y),
        cross_over_rate=0.7,
        mutation_rate=0.3,
        )
@@ -95,7 +107,9 @@ def TwoDimFuncOptimize():
        population_num=5,
        population_size=5,
        fitness_func=d2_func,
+       gen_population=lambda x:gen_population(x),
        g2p=lambda x: d2vec(b2d(gr2b(x))),
+       mutation_func=lambda x,y:mutation_func(x,y),
        cross_over_rate=0.7,
        mutation_rate=0.3,
        )
