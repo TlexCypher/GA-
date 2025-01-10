@@ -57,7 +57,7 @@ def main():
     tsp = TSP(5)
     ga_solver = GASolver(minimize=True)
     ga_solver.solve(
-       generation_num=1000,
+       generation_num=3,
        population_num=5,
        population_size=5,
        fitness_func=lambda x:tsp.dist(x),
