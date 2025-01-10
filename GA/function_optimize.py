@@ -116,7 +116,7 @@ def TwoDimFuncOptimize():
 def main():
     OneDimFuncOptimize()
     print("---------------------------------------------------")
-    # TwoDimFuncOptimize()
+    TwoDimFuncOptimize()
 
 if __name__  == '__main__':
     main()
