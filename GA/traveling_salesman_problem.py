@@ -1,9 +1,9 @@
 from GA import GASolver
 import random
 from typing import List
-from math import sqrt
 import numpy as np
 
+random.seed(0)
 
 class TSP(object):
     def __init__(self, city_count: int):
@@ -57,7 +57,7 @@ def main():
     tsp = TSP(5)
     ga_solver = GASolver(minimize=True)
     ga_solver.solve(
-       generation_num=2000,
+       generation_num=1000,
        population_num=5,
        population_size=5,
        fitness_func=lambda x:tsp.dist(x),

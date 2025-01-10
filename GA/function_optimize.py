@@ -2,12 +2,9 @@ import numpy as np
 import random
 from typing import Tuple
 from GA import GASolver
-import logging
 
 
 random.seed(0)
-logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-# logging.disable(logging.CRITICAL)
 
 
 def d1_func(x: float) -> float:
@@ -63,10 +60,9 @@ def mutation_func(population: str, mutation_rate: float) -> str:
 
 def OneDimFuncOptimize():
     print("One Dimension Function Optimization start.")
-    print("Binary Encoding Version.")
-
     random.seed(0)
     ga_solver = GASolver(False)
+    print("Binary Encoding Version.")
     ga_solver.solve(generation_num=3,
        population_num=5,
        population_size=5,
@@ -94,17 +90,17 @@ def TwoDimFuncOptimize():
     random.seed(0)
     print("Two Dimension Function Optimization start.")
     ga_solver = GASolver(False)
-    # print("Binary Encoding Version.")
-    # ga_solver.solve(generation_num=3,
-    #    population_num=5,
-    #    population_size=5,
-    #    fitness_func=d2_func,
-    #    gen_population=lambda x:gen_population(x),
-    #    g2p=lambda x: d2vec(b2d(x)),
-    #    mutation_func=lambda x,y:mutation_func(x,y),
-    #    cross_over_rate=0.7,
-    #    mutation_rate=0.3,
-    #    )
+    print("Binary Encoding Version.")
+    ga_solver.solve(generation_num=3,
+       population_num=5,
+       population_size=5,
+       fitness_func=d2_func,
+       gen_population=lambda x:gen_population(x),
+       g2p=lambda x: d2vec(b2d(x)),
+       mutation_func=lambda x,y:mutation_func(x,y),
+       cross_over_rate=0.7,
+       mutation_rate=0.3,
+       )
     print("Gray Encoding Version")
     ga_solver.solve(generation_num=3,
        population_num=5,
@@ -118,9 +114,9 @@ def TwoDimFuncOptimize():
        )
 
 def main():
-    # OneDimFuncOptimize()
-    # print("---------------------------------------------------")
-    TwoDimFuncOptimize()
+    OneDimFuncOptimize()
+    print("---------------------------------------------------")
+    # TwoDimFuncOptimize()
 
 if __name__  == '__main__':
     main()

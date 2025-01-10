@@ -9,6 +9,9 @@ class GASolver(object):
         if self.minimize:
             max_fitness = max(fitness_values)
             fitness_values = [max_fitness - fv for fv in fitness_values]
+        else:
+            min_fitness = min(fitness_values)
+            fitness_values = [fv - min_fitness for fv in fitness_values]
 
         buffer = 1.0
         _fitness_values = [fv + buffer for fv in fitness_values]
@@ -47,6 +50,7 @@ class GASolver(object):
 
         fitness_values = [fitness_func(g2p(population)) for population in populations]
 
+
         for _ in range(generation_num):
             if self.minimize:
                 elite_index = fitness_values.index(min(fitness_values)) 
@@ -54,11 +58,13 @@ class GASolver(object):
                 elite_index = fitness_values.index(max(fitness_values))
 
             next_populations = [populations[elite_index]]
+
             current_populations = [populations[i] for i in range(population_num) if i != elite_index]
             current_fitness_values = [fitness_values[i] for i in range(population_num) if i != elite_index]
 
             current_populations = self.roulette_selection(current_populations, current_fitness_values)
             current_populations = self.cross_over(current_populations, cross_over_rate)
+            
             current_populations = [mutation_func(population, mutation_rate) for population in current_populations]
             populations = next_populations + current_populations
 
